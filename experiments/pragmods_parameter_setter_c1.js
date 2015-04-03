@@ -34,10 +34,16 @@ var participant_feature_count = 1;
 //      12 -> Pure randomness condition: You ask a concrete randomness question so that Liker, betting and forced choice can be mapped onto actual estimated probabilities  
 //      13 -> "My friend has a hat" this is to establish baserates
 //      14 -> "The face has a hat" this is to remove the connotation that "friend" has
-//var to_choose_from = [1, 13];
-//var linguistic_framing = choose_from(to_choose_from);
+//      15 -> "I like the friend with the hat" (otherwise this is just like 2)
+var to_choose_from = [1, 15];
+var linguistic_framing = choose_from(to_choose_from);
 //var linguistic_framing = random(9, 10);
-var linguistic_framing = 1;
+//var linguistic_framing = 2;
+
+//Determiner. If the lingusitic framing uses the prop_words (usually if it uses a determiner), then choose the indefinite or the definite (sometimes the definite case has no determiner).
+//      1 -> definite
+//      2 -> indefinite
+var determiner = 2;
 
 // Question Type (This will be a controlled experiment with an equal proportion for each base rate).
 //      0 -> Listener inference judgement
@@ -350,12 +356,18 @@ var stims_props = [["cabin","sail","motor"],
            ["hat","scarf","mittens"],
            ["cherry","whipped cream","chocolate"],
 		   ["lights","ornaments","star"]];
-var stims_prop_words = [["a cabin","a sail","a motor"],
+var stims_prop_words_definite = [["a cabin","a sail","a motor"],
 			["a hat","glasses","a mustache"],
 			["mushrooms","olives","peppers"],
             ["a hat","a scarf","mittens"],
             ["a cherry","whipped cream","chocolate sauce"],
 			["lights","ornaments","a star"]];
+var stims_prop_words_indefinite = [["the cabin","the sail","the motor"],
+			["the hat","the glasses","the mustache"],
+			["the mushrooms","the olives","the peppers"],
+            ["the hat","the scarf","the mittens"],
+            ["the cherry","the whipped cream","the chocolate sauce"],
+			["the lights","the ornaments","the star"]];
 var stims_single_words = [["cabin","sail","motor"],
             ["hat","glasses","mustache"],
             ["mushrooms","olives","peppers"],
@@ -404,7 +416,13 @@ var base = stims[stim_index];
 var plural = stims_plural[stim_index];
 var actions = stims_actions[stim_index];
 var props = stims_props[stim_index];
-var prop_words = stims_prop_words[stim_index];
+//Changes which determiner is used
+if (determiner == 1){
+    var prop_words = stims_prop_words_definite[stim_index];
+}
+else if (determiner == 2){
+    var prop_words = stims_prop_words_indefinite[stim_index];
+}
 var individual_prop_words = stims_single_words[stim_index];
 var times = stims_times[stim_index];
 
@@ -415,9 +433,11 @@ var target_prop = prop_perm.indexOf(target_prop_unpermuted);
 var distractor_prop = prop_perm.indexOf(distractor_prop_unpermuted);
 var foil_prop = prop_perm.indexOf(foil_prop_unpermuted);
 
-var actual_target_prop = prop_words[target_prop];
-var actual_distractor_prop = prop_words[distractor_prop];
-var actual_foil_prop = prop_words[foil_prop];
+//These used to use prop_words instead of definite_props
+var definite_props = stims_prop_words_definite[stim_index];
+var actual_target_prop = definite_props[target_prop];
+var actual_distractor_prop = definite_props[distractor_prop];
+var actual_foil_prop = definite_props[foil_prop];
 
 
 // create shuffled familiarization

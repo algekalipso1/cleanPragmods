@@ -375,7 +375,12 @@ var experiment = {
 			} else if (linguistic_framing == 2) {
 				label_html += 'Bob says: ';
 		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"My least favorite ' + base + ' has <b>' + prop_words[target_prop] + '."</b></p>';
-			} else if (linguistic_framing == 3) {
+			}
+            else if (linguistic_framing == 15) {
+                				label_html += 'Bob says: ';
+		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"I like the ' + base + ' with <b>' + prop_words[target_prop] + '."</b></p>';
+            }
+            else if (linguistic_framing == 3) {
 				label_html += 'Bob says: ';
 		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"The most beautiful ' + base + ' has <b>' + prop_words[target_prop] + '."</b></p>';
 			} else if (linguistic_framing == 4) {
@@ -447,7 +452,7 @@ var experiment = {
 				} else if (participant_response_type == 2) {
 					label_html += '<p class="block-text">On a scale from 1 to 7, for each ' + base + ' choose the level of confidence that you have that it is Bob\'s favorite. Here 1 means "very confident that it is not his favorite", 7 means "very confident that it is his favorite" and 4 means that you are not sure one way or the other.</p>';
 				}
-			} else if (linguistic_framing == 0 || linguistic_framing == 2 || linguistic_framing == 1 || linguistic_framing == 3 || linguistic_framing == 4 || linguistic_framing == 5 || linguistic_framing == 6 || linguistic_framing == 13) {
+			} else if (linguistic_framing == 0 || linguistic_framing == 2 || linguistic_framing == 1 || linguistic_framing == 3 || linguistic_framing == 4 || linguistic_framing == 5 || linguistic_framing == 6 || linguistic_framing == 13 || linguistic_framing == 15) {
 				if (participant_response_type == 0) {
 					label_html += '<p class="block-text">Click below on the option that represents the ' + base + ' that you think Bob is talking about.</p>';
 				} else if (participant_response_type == 1) {
