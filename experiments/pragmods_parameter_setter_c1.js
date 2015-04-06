@@ -20,7 +20,7 @@ var participant_feature_count = 1;
 
 // Linguistic framing
 //      0 -> "My favorite friend has a hat"
-//      1 -> "Bob can only say one word to communicate with you: Hat"
+//      1 -> "Bob can only say one word to communicate which X he likes and he says: Hat"
 //      2 -> "My least favorite friend has a hat"  - from 2 onwards we try different words to measure the effect of different semantics
 //      3 -> "The most beautiful X has a hat"
 //      4 -> "The most ugly X has a hat"
@@ -35,7 +35,8 @@ var participant_feature_count = 1;
 //      13 -> "My friend has a hat" this is to establish baserates
 //      14 -> "The face has a hat" this is to remove the connotation that "friend" has
 //      15 -> "I like the friend with the hat" (otherwise this is just like 2)
-var to_choose_from = [1, 15];
+//      16 -> This is the prior condition for the context coordiantion experiment
+var to_choose_from = [1, 15, 16];
 var linguistic_framing = choose_from(to_choose_from);
 //var linguistic_framing = random(9, 10);
 //var linguistic_framing = 2;

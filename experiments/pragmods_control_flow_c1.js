@@ -370,15 +370,19 @@ var experiment = {
 				label_html += 'Bob says: ';
 		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"My favorite ' + base + ' has <b>' + prop_words[target_prop] + '."</b></p>';
 			} else if (linguistic_framing == 1 || linguistic_framing == 10) {
-				label_html += 'Bob can only say one word to communicate with you and he says: ';
+				label_html += 'Bob can only say one word to communicate which ' + base + ' he likes and he says: ';
 				label_html += '<p class="block-text style="font-size:x-large;">  <b>' + individual_prop_words[target_prop] + '</b></p>';
 			} else if (linguistic_framing == 2) {
 				label_html += 'Bob says: ';
 		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"My least favorite ' + base + ' has <b>' + prop_words[target_prop] + '."</b></p>';
 			}
             else if (linguistic_framing == 15) {
-                				label_html += 'Bob says: ';
+                label_html += 'Bob says: ';
 		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"I like the ' + base + ' with <b>' + prop_words[target_prop] + '."</b></p>';
+            }
+            else if (linguistic_framing == 16) {
+                //This is where the main prompt for the prior condition goes
+		    	label_html += '<p class="block-text style="font-size:x-large;">' + '</p>';
             }
             else if (linguistic_framing == 3) {
 				label_html += 'Bob says: ';
@@ -477,6 +481,17 @@ var experiment = {
 					label_html += '<p class="block-text">On a scale from 1 to 7, for each ' + base + ' choose the level of confidence that you have that Bob is refering to it. Here 1 means "very confident that he is not refering to this ' + base + '", 7 means "very confident that he is refering to this ' + base + '" and 4 means that you are not sure one way or the other.</p>';
 				}
 			}
+            else if (linguistic_framing == 16) {
+                //This should be "Which [noun] do you think Bob likes?"
+                //Where lingusitic-framing 16 corresponds to the prior condition
+				if (participant_response_type == 0) {
+					label_html += '<p class="block-text">Which ' + base + ' do you think Bob likes?</p>';
+				} else if (participant_response_type == 1) {
+					label_html += '<p class="block-text">You have $100 you can use to bet on the ' + base + ' you think Bob is talking about. Distribute your $100 among the options by how likely you think that Bob likes each of the options. (Make sure your bets add to $100).</p>';
+				} else if (participant_response_type == 2) {
+					label_html += '<p class="block-text">On a scale from 1 to 7, for each ' + base + ' choose the level of confidence that you have that Bob likes it. Here 1 means "very confident that Bob does NOT like it", 7 means "very confident that Bob is likes it" and 4 means that you are not sure one way or the other.</p>';
+				}
+            }
 		}
 
 

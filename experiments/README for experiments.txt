@@ -48,12 +48,12 @@ just ask "which one is his friend" with no reference game or mumbles.
 ------- c1: Clean code -------
 
 pragmods_c1.html is cleaned by adding comments and proper indentation.
-The js file is partitiones into three js files with distinct functionality. 
+The js file is partitioned into three js files with distinct functionality. 
 Each of the .js file is polished and refactored to facilitate future changes
 and improvements. Notice that the order in which the 
 scripts are declared do matter a lot because they build on top of each other:
 
-    <!-- The js scripts delaration section. To improve functionality there are a few js scripts so that parameters can be more easily set and functions be edited. The first one is pragmods_helper_functions_c1.js which contains simple functions. Note that these .js need to be declared in a proper order. -->
+    <!-- The js scripts declaration section. To improve functionality there are a few js scripts so that parameters can be more easily set and functions be edited. The first one is pragmods_helper_functions_c1.js which contains simple functions. Note that these .js need to be declared in a proper order. -->
     <script src="pragmods_helper_functions_c1.js"></script>
 
     <!-- This .js file will set the variable random parameters of the experiment. When it comes to vectorize the parameters of the experiment using this -->
@@ -66,13 +66,13 @@ A general framework to write code that dynamically generates experiments from a 
 of relevant possible experiments is to be found in pragmods_parameter_setter_c1.js
 
 
-Bug with Fire Fox and Intermet Explorer:
+Bug with Fire Fox and Internet Explorer:
 It turns out that the end function had a *formatting* bug that Firefox and Internet
-Explorer were not properly reading. However, beause this was compartamentalized in the code 
+Explorer were not properly reading. However, because this was compartamentalized in the code 
 of pragmods_c1 and not before, the people with Firefox were probable unable to even start
 the HIT in previous versions.
 
 
-And bug with Interent Explorer:
-getElementByName does not work as it does in every other browser... this in turn makes 
+And bug with Internet Explorer:
+getElementByName does not work as it does in every other browser... this in turn causes 
 the check for the last button to fail no matter what. 
