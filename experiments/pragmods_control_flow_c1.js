@@ -15,7 +15,7 @@ To make the code more usable it will be necessary to
 var base_image_pl = new Array();
 for (i=0; i<3; i++) {
     base_image_pl[i] = new Image();
-    base_image_pl[i].src = "images2/" + base + "-base" + String(i+1) + ".png";
+    base_image_pl[i].src = "contextimages/" + base + "-base" + ".png";
 }
 
 
@@ -23,7 +23,7 @@ for (i=0; i<3; i++) {
 var props_image_pl = new Array() 
 for (i=0;i<props.length;i++) {
     props_image_pl[i] = new Image();
-    props_image_pl[i].src = "images2/" + base + "-" + props[i] + ".png";
+    props_image_pl[i].src = "contextimages/" + base + "-" + props[i] + ".png";
 }
 
 var number_to_name = new Array();
@@ -60,6 +60,27 @@ for (i=0;i<3;i++) {
 		rit += props[i] + ",";
 	}
 }
+
+// Build props for context coordination??
+for (i=0;i<3;i++) {
+	if (expt_perm[0][i] == 2) {
+		lit += props[i] + ",";
+	}
+}
+// middle items
+for (i=0;i<3;i++) {
+	if (expt_perm[1][i] == 2) {
+		mit += props[i] + ",";
+	}
+}
+
+// right items
+for (i=0;i<3;i++) {
+	if (expt_perm[2][i] == 2) {
+		rit += props[i] + ",";
+	}
+}
+
 
 items_matrix_str = [lit, mit, rit];
 
@@ -208,7 +229,7 @@ var experiment = {
 				experiment.target_frequency = 0;
 				experiment.familiarization_cond = -1;
 				// Instructions when there is no familiarization: Presenting Bob and explaning what that Bob does.
-				// The importance of this slide in this condition (familiarization_status == 0) is to reiffy 
+				// The importance of this slide in this condition (familiarization_status == 0) is to reify 
 				// the social situation. In other words, make it clear that *someone* is asking you about the person.
 				var familiarization_html = '<p class="block-text"">Bob really likes to ' + 
 				actions[0] + ' ' + plural + '. <br>' + 
@@ -238,7 +259,7 @@ var experiment = {
 			// Q: Is this 3 a variable thing 
 			for (i=0;i<3;i++) {
 				forced_choice_objects_html += '<td width=198px height=210px align="center"' + 
-				' class="notChoices objTable">';
+				' class="notChoices objTable">';//Height used to be 210px (280px for long lunchboxes)
 				forced_choice_objects_html += stimHTML(base,i,expt_perm[i],props,'obj', file_number_to_use_for_referents);
 				forced_choice_objects_html += '</td>';
 			}
@@ -370,7 +391,7 @@ var experiment = {
 				label_html += 'Bob says: ';
 		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"My favorite ' + base + ' has <b>' + prop_words[target_prop] + '."</b></p>';
 			} else if (linguistic_framing == 1 || linguistic_framing == 10) {
-				label_html += 'Bob can only say one word to communicate which ' + base + ' he likes and he says: ';
+				label_html += 'Bob can only say one word to communicate which ' + base + ' he is looking at and he says: ';
 				label_html += '<p class="block-text style="font-size:x-large;">  <b>' + individual_prop_words[target_prop] + '</b></p>';
 			} else if (linguistic_framing == 2) {
 				label_html += 'Bob says: ';
@@ -378,7 +399,7 @@ var experiment = {
 			}
             else if (linguistic_framing == 15) {
                 label_html += 'Bob says: ';
-		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"I like the ' + base + ' with <b>' + prop_words[target_prop] + '."</b></p>';
+		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"I am looking at the ' + base + ' with <b>' + prop_words[target_prop] + '."</b></p>';
             }
             else if (linguistic_framing == 16) {
                 //This is where the main prompt for the prior condition goes
@@ -485,7 +506,7 @@ var experiment = {
                 //This should be "Which [noun] do you think Bob likes?"
                 //Where lingusitic-framing 16 corresponds to the prior condition
 				if (participant_response_type == 0) {
-					label_html += '<p class="block-text">Which ' + base + ' do you think Bob likes?</p>';
+					label_html += '<p class="block-text">Which ' + base + ' do you think Bob is looking at?</p>';
 				} else if (participant_response_type == 1) {
 					label_html += '<p class="block-text">You have $100 you can use to bet on the ' + base + ' you think Bob is talking about. Distribute your $100 among the options by how likely you think that Bob likes each of the options. (Make sure your bets add to $100).</p>';
 				} else if (participant_response_type == 2) {

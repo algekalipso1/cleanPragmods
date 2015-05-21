@@ -68,14 +68,14 @@ function showSlide(id) {
 function stimHTML(base, n, prop_mat, props, id, file_number) {
     var html = "";
 
-    html += '<img src="images' + file_number +  '/' + base + '-base' + String(n+1) +
-    '.png" width=200px height=200px alt="' + base + '" id="' + id + 'Image"/>';
+    html += '<img src="contextimages' +  '/' + base + '-base' +
+    '.png" width=200px alt="' + base + '" id="' + id + 'Image"/>';
 
     var c = 0;
     for (var p = 0; p < prop_mat.length; p++) {
 	   if (prop_mat[p] == 1) {
-    	    html += '<img  src="images3/' + base + '-' + props[p] + 
-    		'.png" width=200px height=200px alt="' + props[p] + '" ' +
+    	    html += '<img  src="contextimages/' + base + '-' + props[p] + 
+    		'.png" width=200px alt="' + props[p] + '" ' +
     		'id="' + id + 'Property' + String(c+1) + '"/>';
     	    c = c + 1; // keep count of how many properties we've stacked
 	   }
