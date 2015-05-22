@@ -404,7 +404,7 @@ var stims_single_words = [["bicycle", "bicycle", "car", "car"],
     //        ["lights","ornaments","star"]];
 var stims_actions = [["look at", "looks at", "?1", "found"],
                     ["buy", "buys", "?2", "found"],
-                    ["use", "uses", "?3", "used"]];
+                    ["find", "finds", "?3", "found"]];
     //[["sail","rents","sailed", "rented"],
 	//	     ["visit","chooses to visit","visited", "visited"],
 	//	     ["eat","orders","ate", "eaten"],

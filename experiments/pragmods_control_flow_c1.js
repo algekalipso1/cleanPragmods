@@ -479,7 +479,7 @@ var experiment = {
 				}
 			} else if (linguistic_framing == 0 || linguistic_framing == 2 || linguistic_framing == 1 || linguistic_framing == 3 || linguistic_framing == 4 || linguistic_framing == 5 || linguistic_framing == 6 || linguistic_framing == 13 || linguistic_framing == 15) {
 				if (participant_response_type == 0) {
-					label_html += '<p class="block-text">Click below on the option that represents the ' + base + ' that you think Bob is talking about.</p>';
+					label_html += '<p class="block-text">Click below on the option that represents the ' + base + ' that you think Bob is looking at.</p>';//Was previously "is talking about."
 				} else if (participant_response_type == 1) {
 					label_html += '<p class="block-text">You have $100 you can use to bet on the ' + base + ' you think Bob is talking about. Distribute your $100 among the options by how likely you think that Bob is referring to each of the options. (Make sure your bets add to $100).</p>';
 				} else if (participant_response_type == 2) {
