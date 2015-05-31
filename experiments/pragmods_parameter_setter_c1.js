@@ -223,7 +223,7 @@ if (scale_and_level > 4 && scale_and_level <= 7) {
 if (scale_and_level == 8) {
     expt = [[0, 1, 1], [1, 0 , 1], [1, 1, 0]];
 }
-if (scale_and_level ==9) {
+if (scale_and_level == 9) {
     //The context coordination condition
     //Randomly choose between:
     var possibleExpt=[];
