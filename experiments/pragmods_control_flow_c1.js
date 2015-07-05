@@ -13,7 +13,7 @@ To make the code more usable it will be necessary to
 */
 
 var base_image_pl = new Array();
-for (i=0; i<3; i++) {
+for (i=0; i<expt.length; i++) {
     base_image_pl[i] = new Image();
     base_image_pl[i].src = "contextimages/" + base + "-base" + ".png";
 }
@@ -52,37 +52,42 @@ for (i=0;i<3;i++) {
 		mit += props[i] + ",";
 	}
 }
-
-// right items
-var rit = "";
-for (i=0;i<3;i++) {
-	if (expt_perm[2][i] == 1) {
-		rit += props[i] + ",";
-	}
+if (expt.length > 2){
+    // right items
+    var rit = "";
+    for (i=0;i<3;i++) {
+        if (expt_perm[2][i] == 1) {
+            rit += props[i] + ",";
+        }
+    }
 }
 
 // Build props for context coordination??
-for (i=0;i<3;i++) {
-	if (expt_perm[0][i] == 2) {
-		lit += props[i] + ",";
-	}
-}
+//for (i=0;i<expt.length;i++) {
+//	if (expt_perm[0][i] == 2) {
+//		lit += props[i] + ",";
+//	}
+//}
 // middle items
-for (i=0;i<3;i++) {
-	if (expt_perm[1][i] == 2) {
-		mit += props[i] + ",";
-	}
-}
+//for (i=0;i<expt.length;i++) {
+//	if (expt_perm[1][i] == 2) {
+//		mit += props[i] + ",";
+//	}
+//}
 
 // right items
-for (i=0;i<3;i++) {
-	if (expt_perm[2][i] == 2) {
-		rit += props[i] + ",";
-	}
+//for (i=0;i<expt.length;i++) {
+//	if (expt_perm[2][i] == 2) {
+//		rit += props[i] + ",";
+//	}
+//}
+
+if (expt.length > 2){
+    items_matrix_str = [lit, mit, rit];
 }
-
-
-items_matrix_str = [lit, mit, rit];
+else{
+    items_matrix_str = [lit, mit];
+}
 
 
 // Here you create an ordered list of filenames for the purpose of enabling
@@ -257,14 +262,14 @@ var experiment = {
 		if (participant_response_type == 0) {
 			var forced_choice_objects_html = '<table align="center"><tr>';
 			// Q: Is this 3 a variable thing 
-			for (i=0;i<3;i++) {
+			for (i=0;i<expt.length;i++) {
 				forced_choice_objects_html += '<td width=198px height=210px align="center"' + 
 				' class="notChoices objTable">';//Height used to be 210px (280px for long lunchboxes)
 				forced_choice_objects_html += stimHTML(base,i,expt_perm[i],props,'obj', file_number_to_use_for_referents);
 				forced_choice_objects_html += '</td>';
 			}
 			forced_choice_objects_html += '</tr><tr>';
-			for (i = 0; i < 3; i++) {
+			for (i = 0; i <expt.length; i++) {
 				forced_choice_objects_html += '<td width=198px height=20px align="center"' + 
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i+3) + '\">';
@@ -280,7 +285,7 @@ var experiment = {
 		// When participant_response_type == 1
 		if (participant_response_type == 1) {
 			var betting_amounts_object_html = '<table align="center"><tr>';
-			for (i=0;i<3;i++) {
+			for (i=0;i<expt.length;i++) {
 				betting_amounts_object_html += '<td width=198px height=210px align="center"' + 
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i) + '\">';
@@ -288,7 +293,7 @@ var experiment = {
 				betting_amounts_object_html += '</td>';
 			}
 			betting_amounts_object_html += '</tr><tr>';
-			for (i = 0; i < 3; i++) {
+			for (i = 0; i <expt.length; i++) {
 				betting_amounts_object_html += '<td width=198px height=20px align="center"' + 
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i+3) + '\">';
@@ -303,7 +308,7 @@ var experiment = {
 		// When participant_response_type == 2
 		if (participant_response_type == 2) {
 			var Likert_object_html = '<table align="center"><tr>';
-			for (i=0;i<3;i++) {
+			for (i=0;i<expt.length;i++) {
 				Likert_object_html += '<td width=198px height=210px align="center"' + 
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i) + '\">';
@@ -311,7 +316,7 @@ var experiment = {
 				Likert_object_html += '</td>';
 			}
 			Likert_object_html += '</tr><tr>';
-			for (i = 0; i < 3; i++) {
+			for (i = 0; i < expt.length; i++) {
 				Likert_object_html += '<td width=198px height=30px align="center"' + 
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i+3) + '\">';
@@ -426,7 +431,7 @@ var experiment = {
 			} else if (linguistic_framing == 9) {
 				var color_object_html = '<table align="center"><tr>';
 				// Q: Is this 3 a variable thing 
-				for (i=0;i<3;i++) {
+				for (i=0;i<expt.length;i++) {
 					color_object_html += '<td width=100px height=100px align="center"' + 
 					' class="notChoices objTable">';
 					color_object_html += colorPatchHTML(base,color_order_permuted[i],expt_perm[color_order_permuted[i]],props,'obj', file_number_to_use_for_referents, color_order_permuted);
@@ -524,7 +529,7 @@ var experiment = {
 		var user_input_selection = '';
 		if (participant_response_type == 0) {
 			user_input_selection += '<table align="center"><tr>';
-			for (i=0;i<3;i++) {
+			for (i=0;i<expt.length;i++) {
 				user_input_selection += '<td width=98px height=50px align="center"' + 
 					' class="unchosen objTable" ' +
 					'id="tdchoice' + String(i) + '" ' +
@@ -536,7 +541,7 @@ var experiment = {
 			user_input_selection += '</tr></table>';
 		} else if (participant_response_type == 1) {
 			user_input_selection += '<table align="center"><tr>';
-			for (i = 0; i < 3; i++) {
+			for (i = 0; i < expt.length; i++) {
 				user_input_selection += '<td width=198px height=30px align="center"' + 
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i+3) + '\">';
@@ -546,7 +551,7 @@ var experiment = {
 			user_input_selection += '</tr><tr></tr></table>';
 		} else if (participant_response_type == 2) {
 			user_input_selection += '<br><table align="center"><tr>';
-			for (i = 0; i < 3; i++) {
+			for (i = 0; i < expt.length; i++) {
 			user_input_selection += '<td width=198px height=30px align="center"' + 
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i+3) + '\">';
@@ -554,7 +559,7 @@ var experiment = {
 				user_input_selection += '</td>';
 			}
 			user_input_selection += '</tr><tr>';
-			for (i = 0; i < 3; i++) {
+			for (i = 0; i < expt.length; i++) {
 				user_input_selection += '<td width=198px height=30px align="center"' + 
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i+6) + '\">';
@@ -654,7 +659,7 @@ var experiment = {
     	if (participant_response_type != 1) {
     		betting_condition_fulfilled = 1;
     	} else {
-    		for (var i = 0; i <3; i ++) {
+    		for (var i = 0; i <expt.length; i ++) {
     			if (choice_names[i] == "foil") {
     				experiment.money_allocated_to_foil =  parseInt(document.getElementById("betForOption" + String(i)).value);
     			} else if (choice_names[i] == "target") {
@@ -677,7 +682,7 @@ var experiment = {
     	if (participant_response_type != 2) {
     		likert_condition_fulfilled = 1;
     	} else {
-    		for (var i = 0; i <3; i ++) {
+    		for (var i = 0; i <expt.length; i ++) {
 
     			var listOfLikerOptions = ["likertFor" + String(i) + "_1", "likertFor" + String(i) + "_2", "likertFor" + String(i) + "_3", "likertFor" + String(i) + "_4", "likertFor" + String(i) + "_5", "likertFor" + String(i) + "_6", "likertFor" + String(i) + "_7"];
 

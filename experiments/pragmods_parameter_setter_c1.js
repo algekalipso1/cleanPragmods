@@ -89,9 +89,13 @@ var familiarization_status = 0;
 //    6 -> scaleweird [[0, 1, 1], [1, 0, 1], [1, 0, 1]], level 1
 //    7 -> scaleweird [[0, 1, 1], [1, 0, 1], [1, 0, 1]], level 2
 //    8 -> odd one out [[0, 1, 1], [1, 0 , 1], [1, 1, 0]]
-//var to_choose_from = [8];
-//var scale_and_level = choose_from(to_choose_from);
-var scale_and_level = 9;
+//    9 -> Context Coordination 3-way a vs. aa vs. ab
+//    10-> Context Coordination 2-way aa vs. ab
+//    11-> Context Coordination 2-way a vs. ab
+
+var to_choose_from = [9, 10, 11];
+var scale_and_level = choose_from(to_choose_from);
+//var scale_and_level = 9;
 
 // Elaborate on the purpose of this. Which image is being changed
 var img_size = 200; // needs to be implemented, currently just a placeholder   
@@ -224,7 +228,7 @@ if (scale_and_level == 8) {
     expt = [[0, 1, 1], [1, 0 , 1], [1, 1, 0]];
 }
 if (scale_and_level == 9) {
-    //The context coordination condition
+    //The three-way context coordination condition
     //Randomly choose between:
     var possibleExpt=[];
     possibleExpt[0] = [[1,1,0,0],[1,0,0,0],[1,0,0,1]];
@@ -247,6 +251,59 @@ if (scale_and_level == 9) {
     distractor_prop_unpermuted = distractor_prop_unpermuted[permutation];
     var foil_prop_unpermuted = 0;//Not sure what this does
     var choice_names_unpermuted = ["Doubled_feature","One_feature","Two_features"];//Not sure what this does
+}
+
+if (scale_and_level == 10) {
+    //The context coordination condition
+    //Randomly choose between:
+    var possibleExpt=[];
+    possibleExpt[0] = [[1,1,0,0],[1,0,0,1]];
+    possibleExpt[1] = [[0,0,1,1],[1,0,0,1]];
+    possibleExpt[2] = [[1,1,0,0],[0,1,1,0]];
+    possibleExpt[3] = [[0,0,1,1],[0,1,1,0]];
+
+    permutation = random(0,3);
+    expt=possibleExpt[permutation];
+    
+    //Setting this earlier for clarity w.r.t. the randomization
+    //This enables unpermuted bevavior even though permutation is introduced earlier
+    var level = 0;
+    var target_unpermuted = 0;//The target is the doubled object
+    var distractor_unpermuted = 2;//The distractor is the two feature object
+    var other_unpermuted = 1;//The other is the one feature object
+    var target_prop_unpermuted = [0,3,0,3];
+    target_prop_unpermuted = target_prop_unpermuted[permutation];
+    var distractor_prop_unpermuted = [3,0,3,0];
+    distractor_prop_unpermuted = distractor_prop_unpermuted[permutation];
+    var foil_prop_unpermuted = 0;//Not sure what this does
+    var choice_names_unpermuted = ["Doubled_feature","Two_features"];//Not sure what this does
+    
+}
+
+if (scale_and_level == 11) {
+    //The three-way context coordination condition
+    //Randomly choose between:
+    var possibleExpt=[];
+    possibleExpt[0] = [[1,0,0,0],[1,0,0,1]];
+    possibleExpt[1] = [[0,0,1,0],[1,0,0,1]];
+    possibleExpt[2] = [[0,1,0,0],[0,1,1,0]];
+    possibleExpt[3] = [[0,0,0,1],[0,1,1,0]];
+
+    permutation = random(0,3);
+    expt=possibleExpt[permutation];
+    
+    //Setting this earlier for clarity w.r.t. the randomization
+    //This enables unpermuted bevavior even though permutation is introduced earlier
+    var level = 0;
+    var target_unpermuted = 0;//The target is the doubled object
+    var distractor_unpermuted = 2;//The distractor is the two feature object
+    var other_unpermuted = 1;//The other is the one feature object
+    var target_prop_unpermuted = [0,3,0,3];
+    target_prop_unpermuted = target_prop_unpermuted[permutation];
+    var distractor_prop_unpermuted = [3,0,3,0];
+    distractor_prop_unpermuted = distractor_prop_unpermuted[permutation];
+    var foil_prop_unpermuted = 0;//Not sure what this does
+    var choice_names_unpermuted = ["One_feature","Two_features"];//Not sure what this does
 }
 
 
@@ -444,7 +501,7 @@ if (scale_and_level<=8){
         choice_names[i] = choice_names_unpermuted[target_perm[i]];
     }
 }
-if (scale_and_level==9){
+if (scale_and_level>=9){
     // Don't permute props
     var prop_perm = range(0,expt[0].length-1);
     var target_perm = shuffle(range(0,expt.length-1));
