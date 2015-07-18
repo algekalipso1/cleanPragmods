@@ -14,3 +14,28 @@ Pragmatic priming and the search for alternatives. Bott and Chemla 2013.
 On distractors - Benjamin
 
 On amount of information - Paul
+##################################
+
+TITLE: Game Theoretic Pragmatics
+YEAR: 2013
+AUTHOR(S): Franke, Michael
+TOPIC: basic overview of game theory, use of game theory in simple communication
+SUMMARY: This covers a lot of stuff that is interesting but not totally relevant to my project (e.g., the difference between evolutionary and non-evolutionary approaches to game theoretic pragmatics). It has a lot of game theory matrices which assign numerical values to communicative choices, which is really helpful in understanding the basics. Re: specifying information, it does a good job explaining basically why people do not overspecify unless trying to convey some added meaning.
+REMARKS: Lots of typos??? But nicely written, and a good overview of the topic.
+LINK: http://onlinelibrary.wiley.com/doi/10.1111/phc3.12015/full
+
+TITLE: Cost-Based Pragmatic Inference about Referential Expressions
+YEAR: 2013
+AUTHOR(S): Degen, Judith; Franke, Michael; Jäger, Gerhard
+TOPIC: use of pragmatic inference and cost of expressing information as competing forces
+SUMMARY: Conducted an experiment in which participants learned novel words that referred to various features on visually presented stimuli (monsters and robots). They were told that they needed to identify one of the monsters/robots using one of the words (production), or they were given a word and were tasked with deciding which monster/robot it referred to (comprehension). Words were manipulated by length: "high-cost" words could uniquely identify targets, but were 6 characters; low-cost words required pragmatic inference, but were only 3 characters. In production, people dispreferred sending the costly message. Likewise in comprehension, participants made more inferences when they knew that more specific words were more costly. 
+REMARKS: The production data was not significant (p < .14); the comprehension data reached the threshold for significance (p < .05). This is a good experiment for two reasons - first it doesn't rely on forced-choice (i.e., participants enter their responses rather than choose them from a list), and second it is implicit (i.e., costliness is determined by word length rather than the explicit designation of monetary values to certain words).
+LINK: http://mindmodeling.org/cogsci2013/papers/0093/paper0093.pdf
+
+TITLE: Overspecification and the Cost of Pragmatic Reasoning about Referring Expressions
+YEAR: 2014
+AUTHOR(S): Baumann, Peter; Clark, Brady; Kaufmann, Stefan
+TOPIC: overspecifying information vs. requiring pragmatic inference
+SUMMARY: Experiment was very similar to the ones here with the smiley faces. Participants had to refer to a smiley that could be referred to clearly with an excess of information (e.g., "hat and no sunglasses") but also could be referred to more simply via implicature (e.g., just "hat" - because if you were referring to the one with sunglasses, you'd say "sunglasses"). Participants overspecify when implicature is involved, but not in a simple condition that does not involve implicature.
+REMARKS: Very basic foundational paper about overspecification and pragmatic inference. Suggests that inference is costly - perhaps more costly than the effort involved in producing more information.
+LINK: http://homepages.uconn.edu/~stk12004/Papers/BaumannClarkKaufmann_CogSci.pdf
