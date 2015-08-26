@@ -39,7 +39,7 @@ var participant_feature_count = 1;
 var to_choose_from = [1, 15, 16];
 var linguistic_framing = choose_from(to_choose_from);
 //var linguistic_framing = random(9, 10);
-//var linguistic_framing = 2;
+//var linguistic_framing = 16;
 
 //Determiner. If the lingusitic framing uses the prop_words (usually if it uses a determiner), then choose the indefinite or the definite (sometimes the definite case has no determiner).
 //      1 -> definite
@@ -281,7 +281,7 @@ if (scale_and_level == 10) {
 }
 
 if (scale_and_level == 11) {
-    //The three-way context coordination condition
+    //The context coordination condition
     //Randomly choose between:
     var possibleExpt=[];
     possibleExpt[0] = [[1,0,0,0],[1,0,0,1]];
@@ -417,15 +417,23 @@ if (scale_and_level == 8) {
 
 
 
-var stims = ["house", "lunchbox", "plate"];
+var stims = ["house", "lunchbox", "plate", "Ice_cream", "XmasTree", "Boat", "Bicycle"];
     //["boat","friend","pizza","snowman","sundae","Christmas tree"];
+
+var stimWord = ["house", "lunchbox", "plate", "ice cream sundae", "Christmas tree", "boat", "bicycle"];
+
+var stimWordIndefinite = ["a house", "a lunchbox", "a plate", "an ice cream sundae", "a Christmas tree", "a boat", "a bicycle"];
     
-var stims_plural = ["houses", "lunchboxes", "plates"];
+var stims_plural = ["houses", "lunchboxes", "plates", "ice cream sundaes", "Christmas trees", "boats", "bicycles"];
     //["boats","friends","pizzas","snowmen","sundaes","Christmas trees"];
 
 var stims_props = [["bicycle1", "bicycle2", "car1", "car2"],
                    ["apple1", "apple2", "cookie1", "cookie2"],
-                   ["fork1", "fork2", "spoon1", "spoon2"]];
+                   ["fork1", "fork2", "spoon1", "spoon2"],
+                   ["cherry1", "cherry2", "cookie1", "cookie2"],
+                   ["flake1", "flake2", "cane1", "cane2"],
+                   ["sail1", "sail2", "person1", "person2"],
+                   ["reflector1", "reflector2", "bottle1", "bottle2"]];
     //[["cabin","sail","motor"],
 	//	   ["hat","glasses","mustache"],
 	//	   ["mushrooms","olives","peppers"],
@@ -434,7 +442,11 @@ var stims_props = [["bicycle1", "bicycle2", "car1", "car2"],
     //     ["lights","ornaments","star"]];
 var stims_prop_words_definite = [["a bicycle", "a bicycle", "a car", "a car"],
                    ["an apple", "an apple", "a cookie", "a cookie"],
-                   ["a fork", "a fork", "a spoon", "a spoon"]];
+                   ["a fork", "a fork", "a spoon", "a spoon"],
+                   ["a cherry", "a cherry", "a cookie", "a cookie"],
+                   ["a snowflake", "a snowflake", "a candy cane", "a candy cane"],
+                   ["a sail", "a sail", "a person", "a person"],
+                   ["a reflector", "a reflector", "a water bottle", "a water bottle"]];
     //[["a cabin","a sail","a motor"],
 	//		["a hat","glasses","a mustache"],
 	//		["mushrooms","olives","peppers"],
@@ -443,7 +455,11 @@ var stims_prop_words_definite = [["a bicycle", "a bicycle", "a car", "a car"],
 	//		["lights","ornaments","a star"]];
 var stims_prop_words_indefinite = [["the bicycle", "the bicycle", "the car", "the car"],
                     ["the apple", "the apple", "the cookie", "the cookie"],
-                    ["the fork", "the fork", "the spoon", "the spoon"]];
+                    ["the fork", "the fork", "the spoon", "the spoon"],
+                    ["the cherry", "the cherry", "the cookie", "the cookie"],
+                    ["the snowflake", "the snowflake", "the candy cane", "the candy cane"],
+                    ["the sail", "the sail", "the person", "the person"],
+                    ["the reflector", "the reflector", "the water bottle", "the water bottle"]];
     //[["the cabin","the sail","the motor"],
 	//		["the hat","the glasses","the mustache"],
 	//		["the mushrooms","the olives","the peppers"],
@@ -452,29 +468,39 @@ var stims_prop_words_indefinite = [["the bicycle", "the bicycle", "the car", "th
 	//		["the lights","the ornaments","the star"]];
 var stims_single_words = [["bicycle", "bicycle", "car", "car"],
                     ["apple", "apple", "cookie", "cookie"],
-                    ["fork", "fork", "spoon", "spoon"]];
+                    ["fork", "fork", "spoon", "spoon"],
+                    ["cherry", "cherry", "cookie", "cookie"],
+                    ["snowflake", "snowflake", "candy cane", "candy cane"],
+                    ["sail", "sail", "person", "person"],
+                    ["reflector", "reflector", "water bottle", "water bottle"]];
     //[["cabin","sail","motor"],
     //        ["hat","glasses","mustache"],
     //        ["mushrooms","olives","peppers"],
     //        ["hat","scarf","mittens"],
     //        ["cherry","whipped-cream","chocolate"],
     //        ["lights","ornaments","star"]];
-var stims_actions = [["look at", "looks at", "?1", "found"],
-                    ["buy", "buys", "?2", "found"],
-                    ["find", "finds", "?3", "found"]];
+var stims_actions = [["look at", "looks at", "?1", "seen"],
+                    ["look at", "looks at", "?2", "seen"],
+                    ["look at", "looks at", "?3", "seen"],
+                    ["look at", "looks at", "?3", "seen"],
+                    ["look at", "looks at", "?3", "seen"],
+                    ["look at", "looks at", "?3", "seen"],
+                    ["look at", "looks at", "?3", "seen"]];
     //[["sail","rents","sailed", "rented"],
 	//	     ["visit","chooses to visit","visited", "visited"],
 	//	     ["eat","orders","ate", "eaten"],
 	//	     ["decorate","makes", "decorated", "decorated"],
 	//	     ["eat","makes","ate", "eaten"],
 	//	     ["trim","buys","trimmed", "trimmed"]];
+//buys
 var stims_times =
     [["weekend","Week"],
 		   ["Sunday","Week"],
 		   ["Wednesday","Week"],
 		   ["winter","Year"],
 		   ["Friday","Week"],
-		   ["Christmas","Year"]];
+		   ["summer","Year"],
+           ["month", "Month"]];
 
 
 // In case the number of possible stimulus is changed and hence the stim_index may vary. So far we know it advance there
@@ -536,6 +562,8 @@ if (determiner == 1){
 else if (determiner == 2){
     var prop_words = stims_prop_words_indefinite[stim_index];
 }
+var baseWord = stimWord[stim_index];
+var baseWord_indefinite = stimWordIndefinite[stim_index];
 var individual_prop_words = stims_single_words[stim_index];
 var times = stims_times[stim_index];
 

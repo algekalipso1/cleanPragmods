@@ -90,7 +90,7 @@ frameheight::700
 reward::0.20
 &&&	How much you're paying per HIT, in dollars. E.g., if you want to pay 30 cents per HIT, enter ".30".
 
-numberofparticipants::540
+numberofparticipants::180
 &&&	How many subjects you want. You can always add more later, through the web interface.
 
 assignmentduration::10
