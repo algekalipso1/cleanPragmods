@@ -50,7 +50,7 @@ rewriteProperties::yes
 &&&     Selecting 'no' here means that you have to manually choose whether to go live or use the Sandbox, by going to the mturk.properties file and uncommenting the appropriate service URL and commenting out the wrong one. If you choose the manual route, the next ('liveHIT') option is not relevant. Also check that you're using https as Amazon has stopped supporting non-secure connections.
 &&&     This option was added on 8/21/12, in response to changes at AWS which rendered the useful -sandbox CLT option obsolete. (Grr.) 
 
-liveHIT::yes
+liveHIT::no
 &&&     Is this live or sandbox? set to yes to go live. default is no (sandbox). This is only relevant if you've decided to let Submiterator manipulate your mturk-properties file, by selecting 'yes' for the rewriteProperties option. Otherwise, choose sandbox vs. live HIT it manually by modifying the mturk.properties file.
 
 title::Answer a quick experimental question (1-2 mins)
@@ -105,7 +105,7 @@ autoapprovaldelay::24
 &&& Edit: in minutes
 &&&	In seconds. Make this some reasonable amount of time, like 2.5 days (~ 60000 seconds). (This option should never be relevant, since you are a responsible requester who makes approval decisions promptly!)
 
-conditions::Full_experiment_except_stimuli
+conditions::Full_experiment
 &&&	List a condition name for each HIT you're posting. If you're posting a single HIT (the normal case in our lab), this will be a single word, which might as well be "condition".
 &&&	If you want to post multiple HITs in a batch, you may be able to do it by having multiple conditions listed here, separated by a comma. I haven't tried this so it might not work. 
 &&&	Personally I wouldn't want this functionality for a psychology experiment anyway, since workers will probably end up doing more than one of your conditions and you'll have to pay more and go through and figure out which data to exclude. It's probably better to post a single HIT and implement randomization or counterbalancing in your JavaScript. (Though be warned, proper counterbalancing is likely to be difficult.)
