@@ -1,0 +1,11 @@
+~/Code/aws-mturk-clt-1.3.1/bin ~/Code/pragmods/experiments
+--[Retrieving Results]----------
+Retrieved HIT 1/1, 3BFF0DJK8XCMQ0CFVKGU03BUUTAST1
+--[Done Retrieving Results]----------
+
+Results have been written to file '/Users/Larry/Code/pragmods/experiments/pragmods_c1.results'.
+
+Assignments completed: 1/5 (20%)
+         Time elapsed: 0:02:14 (h:mm:ss)
+  Average submit time: 41.0 seconds
+~/Code/pragmods/experiments

@@ -3,7 +3,6 @@
   <head>
     <title>What is he talking about?</title>
 
-    <!-- What does this js script do? -->
     <script src="jquery.min.js"></script>
 
     <!--mmturkey manages submitting data to Mechanical Turk. This defines a global object, turk, and attaches five properties to it, hitId, assignmentId, workerId, previewMode, and turkSubmitTo. It also provides a single method, submit(data), which you use to submit data to Turk. If no submission URL has been provided (because, e.g. you're testing your code outside of the Turk environment), submit displays what would have been submitted (without, obviously, any Turk-specific variables like workerId and assignmentId). -->
@@ -11,6 +10,19 @@
 
     <!-- What does this js script do? -->
     <script src="underscore-min.js"></script>
+      
+    <!-- Unique Turker Script-->
+    <script src="//uniqueturker.myleott.com/lib.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    (function(){
+        var ut_id = "e6bb6b41e3398ffde7cf4b83bec68d4e";
+        if (UTWorkerLimitReached(ut_id)) {
+            document.getElementById('mturk_form').style.display = 'none';
+            document.getElementsByTagName('body')[0].innerHTML = "You have already completed the maximum number of HITs allowed by this requester. Please click 'Return HIT' to avoid any impact on your approval rating.";
+        }
+    })();
+    </script>
+    
 
     <!-- The CSS stylesheet. Very conventional.  -->
     <link rel="stylesheet" href="style.css"/>
@@ -24,8 +36,8 @@
 
     <!-- This is the introduction slide with the Start button, the introduction and the legal text. I.e. the "instructions" slide. -->
     <div class="slide" id="instructions">
-      <img src="images/stanford.png" alt="Stanford University">
-      <p id='logo-text'>Stanford Language and Cognition Lab</p>
+      <img src="images/UCSD.png" alt="University of California San Diego">
+      <p id='logo-text'>UCSD Computational Psycholinguistics Lab</p>
       <p class="block-text">In this experiment, we're interested in your judgments about what people are talking about. We'll introduce you to a person and some of the things he does, and then ask you to make judgments about what he means. It should take less than 2 - 3 minutes. </p>
 
       <!-- If there is a familiarization stage then the next line should be active, otherwise the one after that should be active-->
@@ -40,9 +52,9 @@
       </b></p>
       <p class="block-text" id="legal">By answering the
       following questions, you are participating in a study being performed by
-      cognitive scientists in the Stanford Department of Psychology. If you have
+          scientists in the UCSD Department of Lingusitics. If you have
       questions about this research, please contact us at 
-      <a href="mailto://languagecoglab@gmail.com.">languagecoglab@gmail.com</a>.
+      <a href="mailto://cplannexspace@gmail.com.">cplannexspace@gmail.com</a>.
       You must be  at least 18 years old to participate. Your participation in 
       this research is voluntary. You may decline to answer any or all of the 
       following questions. You may decline further participation, at any time, 
@@ -88,7 +100,7 @@
       </td></tr></table>
     </div>
 
-    <!-- This is the slide tha asks the experimental subject what the task might have been about. In addition, it fills in relevant variables "about" and "comments" which are returned to Turk. -->
+    <!-- This is the slide that asks the experimental subject what the task might have been about. In addition, it fills in relevant variables "about" and "comments" which are returned to Turk. -->
     <div class="slide" id="check">
       <p class="block-text"> 
         Who did you meet in this survey? :
@@ -138,5 +150,6 @@
     likely it will be a .js file, but it may also be encoded some other way, perhaps as a command line
     tool, or somethig akin to the submiterator, which *generates* a shell script based on the parameter
     that you want. Ask Mickael about it, to see what is the most convinient. -->
+      
   </body>
 </html>

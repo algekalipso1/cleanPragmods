@@ -20,7 +20,7 @@ var participant_feature_count = 1;
 
 // Linguistic framing
 //      0 -> "My favorite friend has a hat"
-//      1 -> "Bob can only say one word to communicate with you: Hat"
+//      1 -> "Bob can only say one word to communicate which X he likes and he says: Hat" (Determinerless)
 //      2 -> "My least favorite friend has a hat"  - from 2 onwards we try different words to measure the effect of different semantics
 //      3 -> "The most beautiful X has a hat"
 //      4 -> "The most ugly X has a hat"
@@ -34,10 +34,17 @@ var participant_feature_count = 1;
 //      12 -> Pure randomness condition: You ask a concrete randomness question so that Liker, betting and forced choice can be mapped onto actual estimated probabilities  
 //      13 -> "My friend has a hat" this is to establish baserates
 //      14 -> "The face has a hat" this is to remove the connotation that "friend" has
-//var to_choose_from = [1, 13];
-//var linguistic_framing = choose_from(to_choose_from);
+//      15 -> "I like the friend with the hat" (otherwise this is just like 2)
+//      16 -> This is the prior condition for the context coordiantion experiment
+var to_choose_from = [1, 15];
+var linguistic_framing = choose_from(to_choose_from);
 //var linguistic_framing = random(9, 10);
-var linguistic_framing = 1;
+//var linguistic_framing = 16;
+
+//Determiner. If the lingusitic framing uses the prop_words (usually if it uses a determiner), then choose the indefinite or the definite (sometimes the definite case has no determiner).
+//      1 -> definite
+//      2 -> indefinite
+var determiner = 2;
 
 // Question Type (This will be a controlled experiment with an equal proportion for each base rate).
 //      0 -> Listener inference judgement
@@ -71,8 +78,6 @@ var familiarization_status = 0;
 //    3 -> "snowman"
 //    4 -> "sundae"
 //    5 -> "Christmas tree"
-var stim_index = random(0,5);
-//var stim_index = 1;
 
 // The Scale and Levels.
 //    0 -> scales [[0, 0, 0], [0, 0, 1], [0, 1, 1]], level 0
@@ -84,9 +89,13 @@ var stim_index = random(0,5);
 //    6 -> scaleweird [[0, 1, 1], [1, 0, 1], [1, 0, 1]], level 1
 //    7 -> scaleweird [[0, 1, 1], [1, 0, 1], [1, 0, 1]], level 2
 //    8 -> odd one out [[0, 1, 1], [1, 0 , 1], [1, 1, 0]]
-//var to_choose_from = [8];
-//var scale_and_level = choose_from(to_choose_from);
-var scale_and_level = 1;
+//    9 -> Context Coordination 3-way a vs. aa vs. ab
+//    10-> Context Coordination 2-way aa vs. ab
+//    11-> Context Coordination 2-way a vs. ab
+
+var to_choose_from = [9, 10, 11];
+var scale_and_level = choose_from(to_choose_from);
+//var scale_and_level = 9;
 
 // Elaborate on the purpose of this. Which image is being changed
 var img_size = 200; // needs to be implemented, currently just a placeholder   
@@ -218,6 +227,85 @@ if (scale_and_level > 4 && scale_and_level <= 7) {
 if (scale_and_level == 8) {
     expt = [[0, 1, 1], [1, 0 , 1], [1, 1, 0]];
 }
+if (scale_and_level == 9) {
+    //The three-way context coordination condition
+    //Randomly choose between:
+    var possibleExpt=[];
+    possibleExpt[0] = [[1,1,0,0],[1,0,0,0],[1,0,0,1]];
+    possibleExpt[1] = [[0,0,1,1],[0,0,1,0],[1,0,0,1]];
+    possibleExpt[2] = [[1,1,0,0],[0,1,0,0],[0,1,1,0]];
+    possibleExpt[3] = [[0,0,1,1],[0,0,0,1],[0,1,1,0]];
+
+    permutation = random(0,3);
+    expt=possibleExpt[permutation];
+    
+    //Setting this earlier for clarity w.r.t. the randomization
+    //This enables unpermuted bevavior even though permutation is introduced earlier
+    var level = 0;
+    var target_unpermuted = 0;//The target is the doubled object
+    var distractor_unpermuted = 2;//The distractor is the two feature object
+    var other_unpermuted = 1;//The other is the one feature object
+    var target_prop_unpermuted = [0,3,0,3];
+    target_prop_unpermuted = target_prop_unpermuted[permutation];
+    var distractor_prop_unpermuted = [3,0,3,0];
+    distractor_prop_unpermuted = distractor_prop_unpermuted[permutation];
+    var foil_prop_unpermuted = 0;//Not sure what this does
+    var choice_names_unpermuted = ["Doubled_feature","One_feature","Two_features"];//Not sure what this does
+}
+
+if (scale_and_level == 10) {
+    //The context coordination condition
+    //Randomly choose between:
+    var possibleExpt=[];
+    possibleExpt[0] = [[1,1,0,0],[1,0,0,1]];
+    possibleExpt[1] = [[0,0,1,1],[1,0,0,1]];
+    possibleExpt[2] = [[1,1,0,0],[0,1,1,0]];
+    possibleExpt[3] = [[0,0,1,1],[0,1,1,0]];
+
+    permutation = random(0,3);
+    expt=possibleExpt[permutation];
+    
+    //Setting this earlier for clarity w.r.t. the randomization
+    //This enables unpermuted bevavior even though permutation is introduced earlier
+    var level = 0;
+    var target_unpermuted = 0;//The target is the doubled object
+    var distractor_unpermuted = 2;//The distractor is the two feature object
+    var other_unpermuted = 1;//The other is the one feature object
+    var target_prop_unpermuted = [0,3,0,3];
+    target_prop_unpermuted = target_prop_unpermuted[permutation];
+    var distractor_prop_unpermuted = [3,0,3,0];
+    distractor_prop_unpermuted = distractor_prop_unpermuted[permutation];
+    var foil_prop_unpermuted = 0;//Not sure what this does
+    var choice_names_unpermuted = ["Doubled_feature","Two_features"];//Not sure what this does
+    
+}
+
+if (scale_and_level == 11) {
+    //The context coordination condition
+    //Randomly choose between:
+    var possibleExpt=[];
+    possibleExpt[0] = [[1,0,0,0],[1,0,0,1]];
+    possibleExpt[1] = [[0,0,1,0],[1,0,0,1]];
+    possibleExpt[2] = [[0,1,0,0],[0,1,1,0]];
+    possibleExpt[3] = [[0,0,0,1],[0,1,1,0]];
+
+    permutation = random(0,3);
+    expt=possibleExpt[permutation];
+    
+    //Setting this earlier for clarity w.r.t. the randomization
+    //This enables unpermuted bevavior even though permutation is introduced earlier
+    var level = 0;
+    var target_unpermuted = 0;//The target is the doubled object
+    var distractor_unpermuted = 2;//The distractor is the two feature object
+    var other_unpermuted = 1;//The other is the one feature object
+    var target_prop_unpermuted = [0,3,0,3];
+    target_prop_unpermuted = target_prop_unpermuted[permutation];
+    var distractor_prop_unpermuted = [3,0,3,0];
+    distractor_prop_unpermuted = distractor_prop_unpermuted[permutation];
+    var foil_prop_unpermuted = 0;//Not sure what this does
+    var choice_names_unpermuted = ["One_feature","Two_features"];//Not sure what this does
+}
+
 
 //  Level 0, scales - m2/r3
 if (scale_and_level == 0) {
@@ -326,54 +414,93 @@ if (scale_and_level == 8) {
     var choice_names_unpermuted = ["twin_1","twin_2","odd_one"];
 }
 
-// Odd one out
-if (scale_and_level == 9) {
-    var level = 4;
-    var target_unpermuted = 2;
-    var distractor_unpermuted = 1;
-    var other_unpermuted = 0;
-    var target_prop_unpermuted = 2;
-    var distractor_prop_unpermuted = 1;
-    var foil_prop_unpermuted = 0;
-    var choice_names_unpermuted = ["twin_1","twin_2","odd_one"];
-}
 
 
 
+var stims = ["house", "lunchbox", "plate", "Ice_cream", "XmasTree", "Boat", "Bicycle"];
+    //["boat","friend","pizza","snowman","sundae","Christmas tree"];
 
-var stims = ["boat","friend","pizza","snowman","sundae","Christmas tree"];
-var stims_plural = ["boats","friends","pizzas","snowmen","sundaes","Christmas trees"];
+var stimWord = ["house", "lunchbox", "plate", "ice cream sundae", "Christmas tree", "boat", "bicycle"];
 
-var stims_props = [["cabin","sail","motor"],
-		   ["hat","glasses","mustache"],
-		   ["mushrooms","olives","peppers"],
-           ["hat","scarf","mittens"],
-           ["cherry","whipped cream","chocolate"],
-		   ["lights","ornaments","star"]];
-var stims_prop_words = [["a cabin","a sail","a motor"],
-			["a hat","glasses","a mustache"],
-			["mushrooms","olives","peppers"],
-            ["a hat","a scarf","mittens"],
-            ["a cherry","whipped cream","chocolate sauce"],
-			["lights","ornaments","a star"]];
-var stims_single_words = [["cabin","sail","motor"],
-            ["hat","glasses","mustache"],
-            ["mushrooms","olives","peppers"],
-            ["hat","scarf","mittens"],
-            ["cherry","whipped-cream","chocolate"],
-            ["lights","ornaments","star"]];
-var stims_actions = [["sail","rents","sailed", "rented"],
-		     ["visit","chooses to visit","visited", "visited"],
-		     ["eat","orders","ate", "eaten"],
-		     ["decorate","makes", "decorated", "decorated"],
-		     ["eat","makes","ate", "eaten"],
-		     ["trim","buys","trimmed", "trimmed"]];
-var stims_times = [["weekend","Week"],
+var stimWordIndefinite = ["a house", "a lunchbox", "a plate", "an ice cream sundae", "a Christmas tree", "a boat", "a bicycle"];
+    
+var stims_plural = ["houses", "lunchboxes", "plates", "ice cream sundaes", "Christmas trees", "boats", "bicycles"];
+    //["boats","friends","pizzas","snowmen","sundaes","Christmas trees"];
+
+var stims_props = [["bicycle1", "bicycle2", "car1", "car2"],
+                   ["apple1", "apple2", "cookie1", "cookie2"],
+                   ["fork1", "fork2", "spoon1", "spoon2"],
+                   ["cherry1", "cherry2", "cookie1", "cookie2"],
+                   ["flake1", "flake2", "cane1", "cane2"],
+                   ["sail1", "sail2", "person1", "person2"],
+                   ["reflector1", "reflector2", "bottle1", "bottle2"]];
+    //[["cabin","sail","motor"],
+	//	   ["hat","glasses","mustache"],
+	//	   ["mushrooms","olives","peppers"],
+    //     ["hat","scarf","mittens"],
+    //     ["cherry","whipped cream","chocolate"],
+    //     ["lights","ornaments","star"]];
+var stims_prop_words_definite = [["a bicycle", "a bicycle", "a car", "a car"],
+                   ["an apple", "an apple", "a cookie", "a cookie"],
+                   ["a fork", "a fork", "a spoon", "a spoon"],
+                   ["a cherry", "a cherry", "a cookie", "a cookie"],
+                   ["a snowflake", "a snowflake", "a candy cane", "a candy cane"],
+                   ["a sail", "a sail", "a person", "a person"],
+                   ["a reflector", "a reflector", "a water bottle", "a water bottle"]];
+    //[["a cabin","a sail","a motor"],
+	//		["a hat","glasses","a mustache"],
+	//		["mushrooms","olives","peppers"],
+    //      ["a hat","a scarf","mittens"],
+    //      ["a cherry","whipped cream","chocolate sauce"],
+	//		["lights","ornaments","a star"]];
+var stims_prop_words_indefinite = [["the bicycle", "the bicycle", "the car", "the car"],
+                    ["the apple", "the apple", "the cookie", "the cookie"],
+                    ["the fork", "the fork", "the spoon", "the spoon"],
+                    ["the cherry", "the cherry", "the cookie", "the cookie"],
+                    ["the snowflake", "the snowflake", "the candy cane", "the candy cane"],
+                    ["the sail", "the sail", "the person", "the person"],
+                    ["the reflector", "the reflector", "the water bottle", "the water bottle"]];
+    //[["the cabin","the sail","the motor"],
+	//		["the hat","the glasses","the mustache"],
+	//		["the mushrooms","the olives","the peppers"],
+    //        ["the hat","the scarf","the mittens"],
+    //        ["the cherry","the whipped cream","the chocolate sauce"],
+	//		["the lights","the ornaments","the star"]];
+var stims_single_words = [["bicycle", "bicycle", "car", "car"],
+                    ["apple", "apple", "cookie", "cookie"],
+                    ["fork", "fork", "spoon", "spoon"],
+                    ["cherry", "cherry", "cookie", "cookie"],
+                    ["snowflake", "snowflake", "candy cane", "candy cane"],
+                    ["sail", "sail", "person", "person"],
+                    ["reflector", "reflector", "water bottle", "water bottle"]];
+    //[["cabin","sail","motor"],
+    //        ["hat","glasses","mustache"],
+    //        ["mushrooms","olives","peppers"],
+    //        ["hat","scarf","mittens"],
+    //        ["cherry","whipped-cream","chocolate"],
+    //        ["lights","ornaments","star"]];
+var stims_actions = [["look at", "looks at", "?1", "seen"],
+                    ["look at", "looks at", "?2", "seen"],
+                    ["look at", "looks at", "?3", "seen"],
+                    ["look at", "looks at", "?3", "seen"],
+                    ["look at", "looks at", "?3", "seen"],
+                    ["look at", "looks at", "?3", "seen"],
+                    ["look at", "looks at", "?3", "seen"]];
+    //[["sail","rents","sailed", "rented"],
+	//	     ["visit","chooses to visit","visited", "visited"],
+	//	     ["eat","orders","ate", "eaten"],
+	//	     ["decorate","makes", "decorated", "decorated"],
+	//	     ["eat","makes","ate", "eaten"],
+	//	     ["trim","buys","trimmed", "trimmed"]];
+//buys
+var stims_times =
+    [["weekend","Week"],
 		   ["Sunday","Week"],
 		   ["Wednesday","Week"],
 		   ["winter","Year"],
 		   ["Friday","Week"],
-		   ["Christmas","Year"]];
+		   ["summer","Year"],
+           ["month", "Month"]];
 
 
 // In case the number of possible stimulus is changed and hence the stim_index may vary. So far we know it advance there
@@ -381,30 +508,62 @@ var stims_times = [["weekend","Week"],
 // var stim_index = random(0,stims.length-1);
 
 
+if (scale_and_level<=8){
+    // Permute the matrix randomly:
+    var prop_perm = shuffle(range(0,expt[0].length-1));
+    var target_perm = shuffle(range(0,expt.length-1));
+    var color_order_permuted = shuffle(range(0,expt[0].length-1));
+    //var target_perm = [0, 1, 2]    // When you want to have a neat order, you can hard code it. That gives you scale level 1 0-items, 1-item, 2-item order always
+    var expt_perm = new Array();
+    var choice_names = new Array();
 
-// Permute the matrix randomly:
-var prop_perm = shuffle(range(0,expt[0].length-1));
-var target_perm = shuffle(range(0,expt.length-1));
-var color_order_permuted = shuffle(range(0,expt[0].length-1));
-//var target_perm = [0, 1, 2]    // When you want to have a neat order, you can hard code it. That gives you scale level 1 0-items, 1-item, 2-item order always
-var expt_perm = new Array();
-var choice_names = new Array();
 
-
-// Permute the second level and first... make into function
-for (var i=0; i<expt.length; i++) {
-    expt_perm[i] = new Array()
-    for (var j=0; j<expt[0].length; j++) {
-    	expt_perm[i][j] = expt[target_perm[i]][prop_perm[j]];
+    // Permute the second level and first... make into function
+    for (var i=0; i<expt.length; i++) {
+        expt_perm[i] = new Array()
+        for (var j=0; j<expt[0].length; j++) {
+            expt_perm[i][j] = expt[target_perm[i]][prop_perm[j]];
+        }
+        choice_names[i] = choice_names_unpermuted[target_perm[i]];
     }
-    choice_names[i] = choice_names_unpermuted[target_perm[i]];
 }
+if (scale_and_level>=9){
+    // Don't permute props
+    var prop_perm = range(0,expt[0].length-1);
+    var target_perm = shuffle(range(0,expt.length-1));
+    var color_order_permuted = range(0,expt[0].length-1);
+    //var target_perm = [0, 1, 2]    // When you want to have a neat order, you can hard code it. That gives you scale level 1 0-items, 1-item, 2-item order always
+    var expt_perm = new Array();
+    var choice_names = new Array();
+
+
+    // Permute the second level and first... make into function
+    for (var i=0; i<expt.length; i++) {
+        expt_perm[i] = new Array()
+        for (var j=0; j<expt[0].length; j++) {
+            expt_perm[i][j] = expt[target_perm[i]][prop_perm[j]];
+        }
+        choice_names[i] = choice_names_unpermuted[target_perm[i]];
+    }
+}
+
+//Choose a stimulus
+var stim_index = random(0,stims.length-1);
+//var stim_index = 1;
 
 var base = stims[stim_index];
 var plural = stims_plural[stim_index];
 var actions = stims_actions[stim_index];
 var props = stims_props[stim_index];
-var prop_words = stims_prop_words[stim_index];
+//Changes which determiner is used
+if (determiner == 1){
+    var prop_words = stims_prop_words_definite[stim_index];
+}
+else if (determiner == 2){
+    var prop_words = stims_prop_words_indefinite[stim_index];
+}
+var baseWord = stimWord[stim_index];
+var baseWord_indefinite = stimWordIndefinite[stim_index];
 var individual_prop_words = stims_single_words[stim_index];
 var times = stims_times[stim_index];
 
@@ -415,9 +574,11 @@ var target_prop = prop_perm.indexOf(target_prop_unpermuted);
 var distractor_prop = prop_perm.indexOf(distractor_prop_unpermuted);
 var foil_prop = prop_perm.indexOf(foil_prop_unpermuted);
 
-var actual_target_prop = prop_words[target_prop];
-var actual_distractor_prop = prop_words[distractor_prop];
-var actual_foil_prop = prop_words[foil_prop];
+//These used to use prop_words instead of definite_props
+var definite_props = stims_prop_words_definite[stim_index];
+var actual_target_prop = definite_props[target_prop];
+var actual_distractor_prop = definite_props[distractor_prop];
+var actual_foil_prop = definite_props[foil_prop];
 
 
 // create shuffled familiarization

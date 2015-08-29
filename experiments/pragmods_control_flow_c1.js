@@ -13,9 +13,9 @@ To make the code more usable it will be necessary to
 */
 
 var base_image_pl = new Array();
-for (i=0; i<3; i++) {
+for (i=0; i<expt.length; i++) {
     base_image_pl[i] = new Image();
-    base_image_pl[i].src = "images2/" + base + "-base" + String(i+1) + ".png";
+    base_image_pl[i].src = "contextimages/" + base + "-base" + ".png";
 }
 
 
@@ -23,7 +23,7 @@ for (i=0; i<3; i++) {
 var props_image_pl = new Array() 
 for (i=0;i<props.length;i++) {
     props_image_pl[i] = new Image();
-    props_image_pl[i].src = "images2/" + base + "-" + props[i] + ".png";
+    props_image_pl[i].src = "contextimages/" + base + "-" + props[i] + ".png";
 }
 
 var number_to_name = new Array();
@@ -52,16 +52,42 @@ for (i=0;i<3;i++) {
 		mit += props[i] + ",";
 	}
 }
-
-// right items
-var rit = "";
-for (i=0;i<3;i++) {
-	if (expt_perm[2][i] == 1) {
-		rit += props[i] + ",";
-	}
+if (expt.length > 2){
+    // right items
+    var rit = "";
+    for (i=0;i<3;i++) {
+        if (expt_perm[2][i] == 1) {
+            rit += props[i] + ",";
+        }
+    }
 }
 
-items_matrix_str = [lit, mit, rit];
+// Build props for context coordination??
+//for (i=0;i<expt.length;i++) {
+//	if (expt_perm[0][i] == 2) {
+//		lit += props[i] + ",";
+//	}
+//}
+// middle items
+//for (i=0;i<expt.length;i++) {
+//	if (expt_perm[1][i] == 2) {
+//		mit += props[i] + ",";
+//	}
+//}
+
+// right items
+//for (i=0;i<expt.length;i++) {
+//	if (expt_perm[2][i] == 2) {
+//		rit += props[i] + ",";
+//	}
+//}
+
+if (expt.length > 2){
+    items_matrix_str = [lit, mit, rit];
+}
+else{
+    items_matrix_str = [lit, mit];
+}
 
 
 // Here you create an ordered list of filenames for the purpose of enabling
@@ -181,8 +207,8 @@ var experiment = {
 				// FAMILIARIZATION INSTRUCTIONS
 				var familiarization_html = '<p class="block-text"">Bob really likes to ' + 
 				actions[0] + ' ' + plural + '. <br>' +
-				'Every ' + times[0] + ' he ' + actions[1] + ' a ' + base + '.<p>' +
-				'<p class="block-text">Click on each ' + times[1].toLowerCase() + ' to see the ' + base + ' Bob ' + actions[2] + '.</p>';
+				'Every ' + times[0] + ' he ' + actions[1] +' '+ baseWord_indefinite + '.<p>' +
+				'<p class="block-text">Click on each ' + times[1].toLowerCase() + ' to see the ' + baseWord + ' Bob ' + actions[2] + '.</p>';
 				$("#familiarizationText").html(familiarization_html);
 
 				// TIME BY TIME POPUPS FOR FAMILIARIZATION
@@ -208,11 +234,11 @@ var experiment = {
 				experiment.target_frequency = 0;
 				experiment.familiarization_cond = -1;
 				// Instructions when there is no familiarization: Presenting Bob and explaning what that Bob does.
-				// The importance of this slide in this condition (familiarization_status == 0) is to reiffy 
+				// The importance of this slide in this condition (familiarization_status == 0) is to reify 
 				// the social situation. In other words, make it clear that *someone* is asking you about the person.
 				var familiarization_html = '<p class="block-text"">Bob really likes to ' + 
 				actions[0] + ' ' + plural + '. <br>' + 
-				'Every ' + times[0] + ' he ' + actions[1] + ' a ' + base + '.<p>';
+				'Every ' + times[0] + ' he ' + actions[1] + ' ' + baseWord_indefinite + '.<p>';
 				$("#familiarizationText").html(familiarization_html);
 			}
 			showSlide("prestage");	
@@ -236,14 +262,14 @@ var experiment = {
 		if (participant_response_type == 0) {
 			var forced_choice_objects_html = '<table align="center"><tr>';
 			// Q: Is this 3 a variable thing 
-			for (i=0;i<3;i++) {
+			for (i=0;i<expt.length;i++) {
 				forced_choice_objects_html += '<td width=198px height=210px align="center"' + 
-				' class="notChoices objTable">';
+				' class="notChoices objTable">';//Height used to be 210px (280px for long lunchboxes)
 				forced_choice_objects_html += stimHTML(base,i,expt_perm[i],props,'obj', file_number_to_use_for_referents);
 				forced_choice_objects_html += '</td>';
 			}
 			forced_choice_objects_html += '</tr><tr>';
-			for (i = 0; i < 3; i++) {
+			for (i = 0; i <expt.length; i++) {
 				forced_choice_objects_html += '<td width=198px height=20px align="center"' + 
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i+3) + '\">';
@@ -259,7 +285,7 @@ var experiment = {
 		// When participant_response_type == 1
 		if (participant_response_type == 1) {
 			var betting_amounts_object_html = '<table align="center"><tr>';
-			for (i=0;i<3;i++) {
+			for (i=0;i<expt.length;i++) {
 				betting_amounts_object_html += '<td width=198px height=210px align="center"' + 
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i) + '\">';
@@ -267,7 +293,7 @@ var experiment = {
 				betting_amounts_object_html += '</td>';
 			}
 			betting_amounts_object_html += '</tr><tr>';
-			for (i = 0; i < 3; i++) {
+			for (i = 0; i <expt.length; i++) {
 				betting_amounts_object_html += '<td width=198px height=20px align="center"' + 
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i+3) + '\">';
@@ -282,7 +308,7 @@ var experiment = {
 		// When participant_response_type == 2
 		if (participant_response_type == 2) {
 			var Likert_object_html = '<table align="center"><tr>';
-			for (i=0;i<3;i++) {
+			for (i=0;i<expt.length;i++) {
 				Likert_object_html += '<td width=198px height=210px align="center"' + 
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i) + '\">';
@@ -290,7 +316,7 @@ var experiment = {
 				Likert_object_html += '</td>';
 			}
 			Likert_object_html += '</tr><tr>';
-			for (i = 0; i < 3; i++) {
+			for (i = 0; i < expt.length; i++) {
 				Likert_object_html += '<td width=198px height=30px align="center"' + 
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i+3) + '\">';
@@ -368,35 +394,44 @@ var experiment = {
 
 			if (linguistic_framing == 0) {
 				label_html += 'Bob says: ';
-		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"My favorite ' + base + ' has <b>' + prop_words[target_prop] + '."</b></p>';
+		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"My favorite ' + baseWord + ' has <b>' + prop_words[target_prop] + '."</b></p>';
 			} else if (linguistic_framing == 1 || linguistic_framing == 10) {
-				label_html += 'Bob can only say one word to communicate with you and he says: ';
+				label_html += 'Bob can only say one word to communicate which ' + baseWord + ' he is looking at and he says: ';
 				label_html += '<p class="block-text style="font-size:x-large;">  <b>' + individual_prop_words[target_prop] + '</b></p>';
 			} else if (linguistic_framing == 2) {
 				label_html += 'Bob says: ';
-		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"My least favorite ' + base + ' has <b>' + prop_words[target_prop] + '."</b></p>';
-			} else if (linguistic_framing == 3) {
+		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"My least favorite ' + baseWord + ' has <b>' + prop_words[target_prop] + '."</b></p>';
+			}
+            else if (linguistic_framing == 15) {
+                label_html += 'Bob says: ';
+		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"I am looking at the ' + baseWord + ' with <b>' + prop_words[target_prop] + '."</b></p>';
+            }
+            else if (linguistic_framing == 16) {
+                //This is where the main prompt for the prior condition goes
+		    	label_html += '<p class="block-text style="font-size:x-large;">' + '</p>';
+            }
+            else if (linguistic_framing == 3) {
 				label_html += 'Bob says: ';
-		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"The most beautiful ' + base + ' has <b>' + prop_words[target_prop] + '."</b></p>';
+		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"The most beautiful ' + baseWord + ' has <b>' + prop_words[target_prop] + '."</b></p>';
 			} else if (linguistic_framing == 4) {
 				label_html += 'Bob says: ';
-		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"The most ugly ' + base + ' has <b>' + prop_words[target_prop] + '."</b></p>';
+		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"The most ugly ' + baseWord + ' has <b>' + prop_words[target_prop] + '."</b></p>';
 			} else if (linguistic_framing == 5) {
 				label_html += 'Bob says: ';
-		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"The most cheerful ' + base + ' has <b>' + prop_words[target_prop] + '."</b></p>';
+		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"The most cheerful ' + baseWord + ' has <b>' + prop_words[target_prop] + '."</b></p>';
 			} else if (linguistic_framing == 6) {
 				label_html += 'Bob says: ';
-		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"The most depressing ' + base + ' has <b>' + prop_words[target_prop] + '."</b></p>';
+		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"The most depressing ' + baseWord + ' has <b>' + prop_words[target_prop] + '."</b></p>';
 			} else if (linguistic_framing == 7 || linguistic_framing == 8) {
 				label_html += '</p>';
 			} else if (linguistic_framing == 13) {
 				label_html += 'Bob says: ';
-		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"My ' + base + ' has <b>' + prop_words[target_prop] + '."</b></p>';
+		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"My ' + baseWord + ' has <b>' + prop_words[target_prop] + '."</b></p>';
 
 			} else if (linguistic_framing == 9) {
 				var color_object_html = '<table align="center"><tr>';
 				// Q: Is this 3 a variable thing 
-				for (i=0;i<3;i++) {
+				for (i=0;i<expt.length;i++) {
 					color_object_html += '<td width=100px height=100px align="center"' + 
 					' class="notChoices objTable">';
 					color_object_html += colorPatchHTML(base,color_order_permuted[i],expt_perm[color_order_permuted[i]],props,'obj', file_number_to_use_for_referents, color_order_permuted);
@@ -419,17 +454,17 @@ var experiment = {
 		} else if (question_type == 1) { // SCHELLING (MUMBLE) CONDITION
 			if (linguistic_framing == 0) {
 				label_html += 'Bob says: '
-		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"The ' + base + ' I most like to ' + actions[0] + ' has <b>mumblemumble."</b></p>' + '<p class="block-text style="font-size:small;">' + '(You couldn\'t hear what he said.)</p>';
+		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"The ' + baseWord + ' I most like to ' + actions[0] + ' has <b>mumblemumble."</b></p>' + '<p class="block-text style="font-size:small;">' + '(You couldn\'t hear what he said.)</p>';
 		    } else {
 				label_html += 'Bob says: '
-		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"The ' + base + ' I will ' + actions[0] + ' next ' + times[0] +' has <b>mumblemumble."</b></p>' + '<p class="block-text style="font-size:small;">' + '(You couldn\'t hear what he said.)</p>';		    	
+		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"The ' + baseWord + ' I will ' + actions[0] + ' next ' + times[0] +' has <b>mumblemumble."</b></p>' + '<p class="block-text style="font-size:small;">' + '(You couldn\'t hear what he said.)</p>';		    	
 		    }
 		} else if (question_type == 2) { // PURE BASE RATE CONDITION
-			label_html += 'Which ' + base + ' is Bob\'s favorite?</p>';
+			label_html += 'Which ' + baseWord + ' is Bob\'s favorite?</p>';
 		} else if (question_type == 3) { // "Bob can only use one word to tell you what boat he will sail next and he says: "mumblemumble"
-			label_html += 'Bob can only say one word to communicate with you which ' + base + ' he will ' + actions[0] + ' next, and he says: <b>mumblemumble.</b></p>' + '<p class="block-text style="font-size:small;">' + '(You couldn\'t hear what he said.)</p>';
+			label_html += 'Bob can only say one word to communicate with you which ' + baseWord + ' he will ' + actions[0] + ' next, and he says: <b>mumblemumble.</b></p>' + '<p class="block-text style="font-size:small;">' + '(You couldn\'t hear what he said.)</p>';
 		} else if (question_type == 4) { // "Which boat will Bob sail next?"
-			label_html += 'Which ' + base + ' will Bob ' + actions[0] + ' next?</p>';
+			label_html += 'Which ' + baseWord + ' will Bob ' + actions[0] + ' next?</p>';
 		}
 
 
@@ -441,37 +476,49 @@ var experiment = {
 		if (question_type == 0 || question_type == 1 || question_type == 3) {
 			if ( linguistic_framing == 7) {
 				if (participant_response_type == 0) {
-					label_html += '<p class="block-text">Click below on the option that represents the ' + base + ' that you think is Bob\'s favorite.</p>';
+					label_html += '<p class="block-text">Click below on the option that represents the ' + baseWord + ' that you think is Bob\'s favorite.</p>';
 				} else if (participant_response_type == 1) {
-					label_html += '<p class="block-text">You have $100 you can use to bet on the ' + base + ' you think may be Bob\'s favorite. Distribute your $100 among the options by how likely you think that each of the options is Bob\'s favorite. (Make sure your bets add to $100).</p>';
+					label_html += '<p class="block-text">You have $100 you can use to bet on the ' + baseWord + ' you think may be Bob\'s favorite. Distribute your $100 among the options by how likely you think that each of the options is Bob\'s favorite. (Make sure your bets add to $100).</p>';
 				} else if (participant_response_type == 2) {
-					label_html += '<p class="block-text">On a scale from 1 to 7, for each ' + base + ' choose the level of confidence that you have that it is Bob\'s favorite. Here 1 means "very confident that it is not his favorite", 7 means "very confident that it is his favorite" and 4 means that you are not sure one way or the other.</p>';
+					label_html += '<p class="block-text">On a scale from 1 to 7, for each ' + baseWord + ' choose the level of confidence that you have that it is Bob\'s favorite. Here 1 means "very confident that it is not his favorite", 7 means "very confident that it is his favorite" and 4 means that you are not sure one way or the other.</p>';
 				}
-			} else if (linguistic_framing == 0 || linguistic_framing == 2 || linguistic_framing == 1 || linguistic_framing == 3 || linguistic_framing == 4 || linguistic_framing == 5 || linguistic_framing == 6 || linguistic_framing == 13) {
+			} else if (linguistic_framing == 0 || linguistic_framing == 2 || linguistic_framing == 1 || linguistic_framing == 3 || linguistic_framing == 4 || linguistic_framing == 5 || linguistic_framing == 6 || linguistic_framing == 13 || linguistic_framing == 15) {
 				if (participant_response_type == 0) {
-					label_html += '<p class="block-text">Click below on the option that represents the ' + base + ' that you think Bob is talking about.</p>';
+					label_html += '<p class="block-text">Click below on the option that represents the ' + baseWord + ' that you think Bob is looking at.</p>';//Was previously "is talking about."
 				} else if (participant_response_type == 1) {
-					label_html += '<p class="block-text">You have $100 you can use to bet on the ' + base + ' you think Bob is talking about. Distribute your $100 among the options by how likely you think that Bob is referring to each of the options. (Make sure your bets add to $100).</p>';
+					label_html += '<p class="block-text">You have $100 you can use to bet on the ' + baseWord + ' you think Bob is talking about. Distribute your $100 among the options by how likely you think that Bob is referring to each of the options. (Make sure your bets add to $100).</p>';
 				} else if (participant_response_type == 2) {
-					label_html += '<p class="block-text">On a scale from 1 to 7, for each ' + base + ' choose the level of confidence that you have that Bob is referring to it. Here 1 means "very confident that Bob is NOT referring to it", 7 means "very confident that Bob is referring to it" and 4 means that you are not sure one way or the other.</p>';
+					label_html += '<p class="block-text">On a scale from 1 to 7, for each ' + baseWord + ' choose the level of confidence that you have that Bob is referring to it. Here 1 means "very confident that Bob is NOT referring to it", 7 means "very confident that Bob is referring to it" and 4 means that you are not sure one way or the other.</p>';
 				}
 			} else if (linguistic_framing == 8) {
 				if (participant_response_type == 0) {
-					label_html += '<p class="block-text">Click below on the option that represents the ' + base + ' that you think is Bob\'s least favorite.</p>';
+					label_html += '<p class="block-text">Click below on the option that represents the ' + baseWord + ' that you think is Bob\'s least favorite.</p>';
 				} else if (participant_response_type == 1) {
-					label_html += '<p class="block-text">You have $100 you can use to bet on the ' + base + ' you think may be Bob\'s least favorite. Distribute your $100 among the options by how likely you think that each of the options is Bob\'s least favorite. (Make sure your bets add to $100).</p>';
+					label_html += '<p class="block-text">You have $100 you can use to bet on the ' + baseWord + ' you think may be Bob\'s least favorite. Distribute your $100 among the options by how likely you think that each of the options is Bob\'s least favorite. (Make sure your bets add to $100).</p>';
 				} else if (participant_response_type == 2) {
-					label_html += '<p class="block-text">On a scale from 1 to 7, for each ' + base + ' choose the level of confidence that you have that it is Bob\'s least favorite. Here 1 means "very confident that it is not his least favorite", 7 means "very confident that it is his least favorite" and 4 means that you are not sure one way or the other.</p>';
+					label_html += '<p class="block-text">On a scale from 1 to 7, for each ' + baseWord + ' choose the level of confidence that you have that it is Bob\'s least favorite. Here 1 means "very confident that it is not his least favorite", 7 means "very confident that it is his least favorite" and 4 means that you are not sure one way or the other.</p>';
 				}
 			} else if (linguistic_framing == 9  || linguistic_framing == 10) {
 				if (participant_response_type == 0) {
-					label_html += '<p class="block-text">Click below on the option that represents the ' + base + ' that you think Bob is refering to.</p>';
+					label_html += '<p class="block-text">Click below on the option that represents the ' + baseWord + ' that you think Bob is refering to.</p>';
 				} else if (participant_response_type == 1) {
-					label_html += '<p class="block-text">You have $100 you can use to bet on the ' + base + ' you think Bob may refering to. Distribute your $100 among the options by how likely you think that Bob is refering to each of the options. (Make sure your bets add to $100).</p>';
+					label_html += '<p class="block-text">You have $100 you can use to bet on the ' + baseWord + ' you think Bob may refering to. Distribute your $100 among the options by how likely you think that Bob is refering to each of the options. (Make sure your bets add to $100).</p>';
 				} else if (participant_response_type == 2) {
-					label_html += '<p class="block-text">On a scale from 1 to 7, for each ' + base + ' choose the level of confidence that you have that Bob is refering to it. Here 1 means "very confident that he is not refering to this ' + base + '", 7 means "very confident that he is refering to this ' + base + '" and 4 means that you are not sure one way or the other.</p>';
+					label_html += '<p class="block-text">On a scale from 1 to 7, for each ' + baseWord + ' choose the level of confidence that you have that Bob is refering to it. Here 1 means "very confident that he is not refering to this ' + baseWord + '", 7 means "very confident that he is refering to this ' + baseWord + '" and 4 means that you are not sure one way or the other.</p>';
 				}
 			}
+            else if (linguistic_framing == 16) {
+                //This should be "Which [noun] do you think Bob likes?"
+                //Where lingusitic-framing 16 corresponds to the prior condition
+				if (participant_response_type == 0) {
+                    //label_html += '<p class="block-text">Which ' + baseWord + ' do you think Bob is looking at?</p>';
+					label_html += '<p class="block-text">Imagine that Bob is about to talk to you about one of the ' + plural + '. Which one do you think it will be?</p>';
+				} else if (participant_response_type == 1) {
+					label_html += '<p class="block-text">You have $100 you can use to bet on the ' + baseWord + ' you think Bob is talking about. Distribute your $100 among the options by how likely you think that Bob likes each of the options. (Make sure your bets add to $100).</p>';
+				} else if (participant_response_type == 2) {
+					label_html += '<p class="block-text">On a scale from 1 to 7, for each ' + baseWord + ' choose the level of confidence that you have that Bob likes it. Here 1 means "very confident that Bob does NOT like it", 7 means "very confident that Bob is likes it" and 4 means that you are not sure one way or the other.</p>';
+				}
+            }
 		}
 
 
@@ -483,7 +530,7 @@ var experiment = {
 		var user_input_selection = '';
 		if (participant_response_type == 0) {
 			user_input_selection += '<table align="center"><tr>';
-			for (i=0;i<3;i++) {
+			for (i=0;i<expt.length;i++) {
 				user_input_selection += '<td width=98px height=50px align="center"' + 
 					' class="unchosen objTable" ' +
 					'id="tdchoice' + String(i) + '" ' +
@@ -495,7 +542,7 @@ var experiment = {
 			user_input_selection += '</tr></table>';
 		} else if (participant_response_type == 1) {
 			user_input_selection += '<table align="center"><tr>';
-			for (i = 0; i < 3; i++) {
+			for (i = 0; i < expt.length; i++) {
 				user_input_selection += '<td width=198px height=30px align="center"' + 
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i+3) + '\">';
@@ -505,7 +552,7 @@ var experiment = {
 			user_input_selection += '</tr><tr></tr></table>';
 		} else if (participant_response_type == 2) {
 			user_input_selection += '<br><table align="center"><tr>';
-			for (i = 0; i < 3; i++) {
+			for (i = 0; i < expt.length; i++) {
 			user_input_selection += '<td width=198px height=30px align="center"' + 
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i+3) + '\">';
@@ -513,7 +560,7 @@ var experiment = {
 				user_input_selection += '</td>';
 			}
 			user_input_selection += '</tr><tr>';
-			for (i = 0; i < 3; i++) {
+			for (i = 0; i < expt.length; i++) {
 				user_input_selection += '<td width=198px height=30px align="center"' + 
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i+6) + '\">';
@@ -571,7 +618,7 @@ var experiment = {
 		    experiment.next_test();
 		} else {
 		    $("#famMessage").html('<font color="red">' + 
-				       'Please make sure you have looked at all the '+ base +  '!' + 
+				       'Please make sure you have looked at all the '+ baseWord +  '!' + 
 				       '</font>');
 		}
     },
@@ -613,7 +660,7 @@ var experiment = {
     	if (participant_response_type != 1) {
     		betting_condition_fulfilled = 1;
     	} else {
-    		for (var i = 0; i <3; i ++) {
+    		for (var i = 0; i <expt.length; i ++) {
     			if (choice_names[i] == "foil") {
     				experiment.money_allocated_to_foil =  parseInt(document.getElementById("betForOption" + String(i)).value);
     			} else if (choice_names[i] == "target") {
@@ -636,7 +683,7 @@ var experiment = {
     	if (participant_response_type != 2) {
     		likert_condition_fulfilled = 1;
     	} else {
-    		for (var i = 0; i <3; i ++) {
+    		for (var i = 0; i <expt.length; i ++) {
 
     			var listOfLikerOptions = ["likertFor" + String(i) + "_1", "likertFor" + String(i) + "_2", "likertFor" + String(i) + "_3", "likertFor" + String(i) + "_4", "likertFor" + String(i) + "_5", "likertFor" + String(i) + "_6", "likertFor" + String(i) + "_7"];
 
